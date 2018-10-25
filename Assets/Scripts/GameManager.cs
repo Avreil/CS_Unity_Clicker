@@ -15,23 +15,37 @@ public class GameManager : MonoBehaviour {
     public float goldPS=0;
     public float goldPC=0;
 
+    private IEnumerator coroutine;
 	
-	
 
 
 
-    void Start () {}
+    void Start () {
+        coroutine = makemoney(1.0f);
+        StartCoroutine(coroutine);
+
+    }
+
 	void Update () {
-        goldDisp.text = "Gold:  " + gold;
-        goldPSDisp.text = "Gold Per Second: " + goldPS;
-        goldPCDisp.text = "Gold Per Click: " + goldPC;
-    
+        Clickit();
     
     }
 
+    private IEnumerator makemoney(float latencyTime){
+        while(true){
+            yield return new WaitForSeconds(latencyTime);
+            gold += goldPS;
+            goldDisp.text = "Gold:  " + gold;
+
+        }
+    }
 
 
-
-
+    //legacy 
+    private void Clickit(){
+        goldDisp.text = "Gold:  " + gold;
+        goldPSDisp.text = "Gold Per Second: " + goldPS;
+        goldPCDisp.text = "Gold Per Click: " + goldPC;
+    }
 
 }
